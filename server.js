@@ -13,9 +13,18 @@ fastify.register(require('fastify-swagger'), {
     }
 })
 fastify.register(require('./routes/files'))
+fastify.register(require('point-of-view'), {
+    engine: {
+        ejs: require('ejs'),
+    },
+})
 
 fastify.get('/obfuscator', function (req, reply) {
-    return reply.sendFile('obfuscator.html') // serving path.join(__dirname, 'public', 'myHtml.html') directly
+    return reply.sendFile('obfuscator.html')
+})
+
+fastify.get('/', function (req, reply) {
+    return reply.redirect('/obfuscator')
 })
 
 PORT = 7777

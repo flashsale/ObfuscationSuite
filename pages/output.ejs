@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>.NET Obfuscator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+<body>
+    <% /* Check if there are any errors and display */ %>
+    <% if (err.length > 0) { %>
+        
+
+        <div class="page-wrap d-flex flex-row align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 text-center">
+                        <span class="display-1 d-block"><%= error_id %></span>
+                        <div class="mb-4 lead"><%= err %></div>
+                        <a href="/obfuscator" class="btn btn-link">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+
+    <% /* If no errors, display metadata and download button */ %>
+     <% } else { %>
+        <p>Files: <%= data.files %></p>
+        <p>Flags: <%= data.flags %></p>
+     <% } %>
+
+
+    <div class="container">
+      <br>
+      <hr id="file1" style="display:none;">
+      <br>
+      <div class="d-grid gap-2"><a href="#" id="file2" target="_blank" style="display:none" type="submit" class="btn btn-lg btn-info">Download Obfuscated File</button></div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</body>
+</html>

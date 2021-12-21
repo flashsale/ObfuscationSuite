@@ -1,12 +1,33 @@
-const {generateFilename} = require('./modules')
+const {obfuscator} = require('./obfuscation')
 const {fastify, fs, util, path, uuidv4, pump} = require('../imports.js')
 
+const serveFile = async (req, reply) => {
+
+}
+
+const outputPage = async (req, reply) => {
+
+    const { id } = req.params
+    meta_file = './files/' + id + '/meta.txt'
+
+    // Read metadata file for the provided id
+    if (!fs.existsSync(meta_file)) { return reply.view('pages/output.ejs', { error_id: "404", err: "Job ID does not exist" }) }
+    let raw = fs.readFileSync(meta_file)
+    let data = JSON.parse(raw)
+
+    return reply.view('pages/output.ejs', { text: "text123", data: data, err: "" })
+}
 
 const uploadFile = async (req, reply) => {
 
     // Create directory for this upload
     folder_id = uuidv4()
-    folder_path = './files/' + folder_id + '/'
+    folder_root = './files/'
+
+    // Check if /files exists, make if not
+    if (!fs.existsSync(folder_root)) { fs.mkdirSync(folder_root) }
+
+    folder_path = folder_root + folder_id + '/'
     fs.mkdirSync(folder_path)
 
     // JSON object for metadata
@@ -44,7 +65,11 @@ const uploadFile = async (req, reply) => {
     let metadata = JSON.stringify(data_object)
     fs.writeFileSync(folder_path + 'meta.txt', metadata)
 
-    reply.send()
+    // Obfuscation
+    obfuscator(folder_id, data_object)
+
+    // Send to downloads page
+    reply.redirect('/output/' + folder_id)
 }
 
-module.exports = { uploadFile }
+module.exports = { uploadFile, serveFile, outputPage }
