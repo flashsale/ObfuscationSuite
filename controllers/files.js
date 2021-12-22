@@ -1,4 +1,4 @@
-const {obfuscator} = require('./obfuscation')
+const {confuserConfig, runConfuser} = require('./obfuscation')
 const {fastify, fs, util, path, uuidv4, pump} = require('../imports.js')
 
 const serveFile = async (req, reply) => {
@@ -11,9 +11,18 @@ const outputPage = async (req, reply) => {
     meta_file = './files/' + id + '/meta.txt'
 
     // Read metadata file for the provided id
-    if (!fs.existsSync(meta_file)) { return reply.view('pages/output.ejs', { error_id: "404", err: "Job ID does not exist" }) }
+    if (!fs.existsSync(meta_file)) { 
+        return reply.view('pages/output.ejs', { error_id: "404", err: "Job ID does not exist" }) 
+    }
     let raw = fs.readFileSync(meta_file)
     let data = JSON.parse(raw)
+
+    
+    if (data.err) { 
+        let re = /(\[ERROR\]).*/g
+        let msg = data.err.match(re)
+        return reply.view('pages/output.ejs', { error_id: "Confuser Error", err: msg, data: "test"})
+    }
 
     return reply.view('pages/output.ejs', { text: "text123", data: data, err: "" })
 }
@@ -33,7 +42,8 @@ const uploadFile = async (req, reply) => {
     // JSON object for metadata
     data_object = {
         files: [],
-        flags: []
+        flags: [],
+        err: {}
     }
 
     // Create metadata file
@@ -66,7 +76,14 @@ const uploadFile = async (req, reply) => {
     fs.writeFileSync(folder_path + 'meta.txt', metadata)
 
     // Obfuscation
-    obfuscator(folder_id, data_object)
+    confuserConfig(folder_id, data_object)
+    const err = await runConfuser(folder_id, data_object)
+
+    if (err) {
+        data_object.err = err
+        metadata = JSON.stringify(data_object)
+        fs.writeFileSync(folder_path + 'meta.txt', metadata)
+    }
 
     // Send to downloads page
     reply.redirect('/output/' + folder_id)

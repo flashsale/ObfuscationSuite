@@ -1,6 +1,6 @@
-const {fastify, fs, util, path, uuidv4, pump} = require('../imports.js')
+const {fastify, fs, util, path, uuidv4, pump, exec} = require('../imports.js')
 
-const obfuscator = (id, metadata) => {
+const confuserConfig = (id, metadata) => {
     
     folder_path = './files/' + id + '/'
     base = process.cwd()
@@ -11,7 +11,7 @@ const obfuscator = (id, metadata) => {
 
     // Construct config file
     // Basic structure
-    line = '<project outputDir="' + base + '\\files\\' + id + '\\Confused" baseDir="' + base + '\\files" xmlns="http://confuser.codeplex.com">\n'
+    line = '<project outputDir="' + base + '\\files\\' + id + '\\Confused" baseDir="' + base + '\\files\\' + id + '\\" xmlns="http://confuser.codeplex.com">\n'
     fs.appendFileSync(config_file, line, (err) => {if (err) throw err})
     line = '  <rule pattern="true" inherit="false">\n'
     fs.appendFileSync(config_file, line, (err) => {if (err) throw err})
@@ -39,7 +39,26 @@ const obfuscator = (id, metadata) => {
 
 }
 
+const runConfuser = async (id,metadata) => {
+
+    // TODO find a beter way to store the location of the confuser binary
+    base = process.cwd()
+    const ConfuserExPath = 'C:\\Users\\fs\\dev\\ConfuserEx\\Confuser.CLI\\bin\\Release\\net461\\Confuser.CLI.exe '
+    folder_path = './files/' + id + '/'
+    config_file = folder_path + id + ".crproj"
+
+    // Run ConfuserEx and store the output
+    try {
+        await exec(ConfuserExPath + config_file)
+    } catch (error) {
+        return error.stdout
+    }
+}
+
+const confuserError = async (id,metadata) => {
+
+}
     
 
 
-module.exports = { obfuscator }
+module.exports = { confuserConfig, runConfuser }
