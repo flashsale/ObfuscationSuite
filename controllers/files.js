@@ -17,14 +17,13 @@ const outputPage = async (req, reply) => {
     let raw = fs.readFileSync(meta_file)
     let data = JSON.parse(raw)
 
-    
-    if (data.err) { 
+    if (data.err != "") { 
         let re = /(\[ERROR\]).*/g
         let msg = data.err.match(re)
         return reply.view('pages/output.ejs', { error_id: "Confuser Error", err: msg, data: "test"})
     }
 
-    return reply.view('pages/output.ejs', { text: "text123", data: data, err: "" })
+    return reply.view('pages/output.ejs', { id: id, data: data, err: "" })
 }
 
 const uploadFile = async (req, reply) => {
@@ -43,7 +42,7 @@ const uploadFile = async (req, reply) => {
     data_object = {
         files: [],
         flags: [],
-        err: {}
+        err: ""
     }
 
     // Create metadata file
@@ -84,6 +83,9 @@ const uploadFile = async (req, reply) => {
         metadata = JSON.stringify(data_object)
         fs.writeFileSync(folder_path + 'meta.txt', metadata)
     }
+
+    // Zip folder for serving
+
 
     // Send to downloads page
     reply.redirect('/output/' + folder_id)

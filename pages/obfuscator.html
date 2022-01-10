@@ -43,50 +43,49 @@
                 <input class="form-control" type="file" id="fileToUpload" name="the_file" multiple>
               </div>
               <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="anti debug">
+                <input class="form-check-input flag" type="checkbox" name="anti debug">
                 <label class="form-check-label" for="flexSwitchCheckDefault"><b>Anti Debug</b> - This protection prevents the assembly from being debugged or profiled.</label>
               </div><div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="anti dump">
+                <input class="form-check-input flag" type="checkbox" name="anti dump">
                 <label class="form-check-label" for="flexSwitchCheckDefault"><b>Anti Dump (Windows Only)</b> - This protection prevents the assembly from being dumped from memory</label>
               </div><div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="anti ildasm">
+                <input class="form-check-input flag" type="checkbox" name="anti ildasm">
                 <label class="form-check-label" for="flexSwitchCheckDefault"><b>Anti IL Dasm</b> - This protection marks the module with a attribute that discourage ILDasm from disassembling it.</label>
               </div><div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="anti tamper">
-                <label class="form-check-label" for="flexSwitchCheckDefault"><b>Anti Tamper</b> - This protection encrypts the methods with the checksum of the whole module, to ensure that the module will load only if no modification has been made to it.</label>
+                <input class="form-check-input flag" type="checkbox" name="anti tamper">
+                <label class="form-check-label flag" for="flexSwitchCheckDefault"><b>Anti Tamper</b> - This protection encrypts the methods with the checksum of the whole module, to ensure that the module will load only if no modification has been made to it.</label>
               </div><div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="constants">
+                <input class="form-check-input flag" type="checkbox" name="constants">
                 <label class="form-check-label" for="flexSwitchCheckDefault"><b>Constants</b> - This protection encodes and compresses constants (numbers, strings, and initializers) in the code.</label>
               </div><div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="ctrl flow">
+                <input class="form-check-input flag" type="checkbox" name="ctrl flow">
                 <label class="form-check-label" for="flexSwitchCheckDefault"><b>Control Flow</b> - This protection mangles the code in the methods so that decompilers cannot decompile the methods.</label>
               </div><div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="harden">
+                <input class="form-check-input flag" type="checkbox" name="harden">
                 <label class="form-check-label" for="flexSwitchCheckDefault"><b>Protecting Hardening</b> - This protection enhances the runtime code of all other protections to make it significantly more difficult to disable and reverse the protection.</label>
               </div><div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="invalid metadata">
+                <input class="form-check-input flag" type="checkbox" name="invalid metadata">
                 <label class="form-check-label" for="flexSwitchCheckDefault"><b>Invalid Meta Data</b> - This protection adds invalid metadata to modules to prevent disassembler/decompiler from opening them.</label>
               </div><div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="ref proxy">
+                <input class="form-check-input flag" type="checkbox" name="ref proxy">
                 <label class="form-check-label" for="flexSwitchCheckDefault"><b>Reference Proxy</b> - This protection encodes and hides references to type/method/fields.</label>
               </div><div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="resources">
+                <input class="form-check-input flag" type="checkbox" name="resources">
                 <label class="form-check-label" for="flexSwitchCheckDefault"><b>Resources</b> - This protection encodes and compresses the embedded resources.</label>
               </div><div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="typescramble">
+                <input class="form-check-input flag" type="checkbox" name="typescramble">
                 <label class="form-check-label" for="flexSwitchCheckDefault"><b>Type Scramble</b> - This protection hides the used types by adding generics to the signatures of of types and methods.</label>
               </div><div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="rename">
+                <input class="form-check-input flag" type="checkbox" name="rename">
                 <label class="form-check-label" for="flexSwitchCheckDefault"><b>Rename</b> - This protection obfuscates the symbols' name so the decompiled source code can neither be compiled nor read.</label>
               </div>
               <br>
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="all">
-                <label class="form-check-label" for="flexSwitchCheckDefault"><b>All</b> - May cause errors -- Just broke this dont use right now.</label>
-              </div>
-              <br>
-            <div class="d-grid gap-2"><button type="submit" onclick="popup()" class="btn btn-lg btn-warning">Obfuscate</button></div>
+            <div class="d-grid gap-2"><button type="submit" onclick="load()" class="btn btn-lg btn-warning">Obfuscate</button></div>
             
+            
+            <div class="spinner-border" id="spinner" role="status" style="position:absolute; top:5%; right:3%; display: none;">
+              <span class="sr-only"></span>
+            </div>
           </form>
     </div>
     <div class="container">
@@ -95,20 +94,10 @@
       <br>
       <div class="d-grid gap-2"><a href="#" id="file2" target="_blank" style="display:none" type="submit" class="btn btn-lg btn-info">Download Obfuscated File</button></div>
     </div>
-    <script>function filegrabber() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const myParam = urlParams.get('file');
-      if (myParam) {
-        var string = "/download/" + myParam
-        document.getElementById('file1').style.display = 'block'
-        document.getElementById('file2').style.display = 'block'
-        document.getElementById('file2').href = string
+    <script>
+      function load() {
+        document.getElementById("spinner").style.display = "block";
       }
-    }
-    function popup() {
-      document.getElementById('popdiv1').style.display = 'block'
-      document.getElementById('formdiv1').style.paddingTop = '1%'
-    }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
