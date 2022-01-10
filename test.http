@@ -1,5 +1,0 @@
-### Get all items
-GET http://localhost:7777/items HTTP/1.1
-
-### Get 1 items
-GET http://localhost:7777/items/1 HTTP/1.1
