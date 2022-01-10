@@ -43,7 +43,7 @@ const runConfuser = async (id,metadata) => {
 
     // TODO find a beter way to store the location of the confuser binary
     base = process.cwd()
-    const ConfuserExPath = 'CHANGEME '
+    const ConfuserExPath = 'C:\\Users\\fs\\dev\\ConfuserEx\\Confuser.CLI\\bin\\Release\\net461\\Confuser.CLI.exe '
     folder_path = './files/' + id + '/'
     config_file = folder_path + id + ".crproj"
 

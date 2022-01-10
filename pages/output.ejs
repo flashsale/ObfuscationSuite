@@ -46,10 +46,9 @@
                 <div class="col-8">
                   <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-                        <%= data.files %>
                         <ul>
-                            <% for (var i = 0; i < data.files; i++) {%>
-                                <li><a href="#"></a><%= data.files[i]%>1</li>
+                            <% for (var i = 0; i < data.files.length; i++) {%>
+                                <li><a href="/download/<%= data.id%>/<%= data.files[i]%>" target="_blank"><%= data.files[i]%></a></li>
                             <% } %>
                         </ul>
                         

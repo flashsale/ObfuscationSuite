@@ -8,5 +8,4 @@ const pump = util.promisify(pipeline)
 const { promisify } = require('util')
 const exec = promisify(require('child_process').exec)
 
-
 module.exports = {fastify, fs, util, path, uuidv4, pump, exec}

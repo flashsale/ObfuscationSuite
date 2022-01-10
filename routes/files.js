@@ -9,12 +9,18 @@ const outputOpts = {
     handler: outputPage
 }
 
+const serveOpts = {
+    handler: serveFile
+}
+
 function itemRoutes (fastify, options, done) {
 
     // Upload file
     fastify.post('/upload', postFileOpts)
 
     fastify.get('/output/:id', outputOpts)
+
+    fastify.get('/download/:id/:file', serveOpts)
 
     done ()
 }

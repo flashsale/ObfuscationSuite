@@ -3,6 +3,9 @@ const {fastify, fs, util, path, uuidv4, pump} = require('../imports.js')
 
 const serveFile = async (req, reply) => {
 
+    const { id, file } = req.params
+    let fpath = "files/" + id + "/Confused/" + file
+    return reply.sendFile(fpath)
 }
 
 const outputPage = async (req, reply) => {
@@ -40,6 +43,7 @@ const uploadFile = async (req, reply) => {
 
     // JSON object for metadata
     data_object = {
+        id: folder_id,
         files: [],
         flags: [],
         err: ""
