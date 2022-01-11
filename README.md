@@ -3,8 +3,9 @@
 2. Install NodeJS
 3. Enable powershell scripts
 4. Run setup.ps1
-5. Run 'node server.js'
-6. Visit localhost:7777/obfuscator
+5. Run 'npm install'
+6. Run 'node server.js'
+7. Visit localhost:7777/obfuscator
 
 
 
