@@ -22,9 +22,7 @@ fastify.register(require('point-of-view'), {
 fastify.get('/obfuscator', function (req, reply) {
     return reply.sendFile('obfuscator.html')
 })
-fastify.get('/test', function (req, reply) {
-    return reply.sendFile('files/obfuscator.html')
-})
+
 fastify.get('/', function (req, reply) {
     return reply.redirect('/obfuscator')
 })
