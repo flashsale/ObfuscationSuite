@@ -30,37 +30,45 @@
 
     <% /* If no errors, display metadata and download button */ %>
      <% } else { %>
-        <p>Files: <%= typeof data.files %></p>
-        <p>Flags: <%= data.flags %></p>
 
+        <div class="container pt-5 text-center">
+            <div class="d-grid gap-2 pb-5"><a type="submit" href="/obfuscator" class="btn btn-lg btn-primary">Home</a></div>
 
-        <div class="container">
             <div class="row">
-                <div class="col-4">
-                  <div class="list-group" id="list-tab" role="tablist">
-                    <a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">Obfuscated Files</a>
-                    <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">Flags</a>
-                    <a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">Original Files</a>
+              <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                  <div class="card-header py-3">
+                    <h4 class="my-0 fw-normal">Obfuscated Flags</h4>
                   </div>
-                </div>
-                <div class="col-8">
-                  <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-                        <ul>
-                            <% for (var i = 0; i < data.files.length; i++) {%>
-                                <li><a href="/download/<%= data.id%>/<%= data.files[i]%>" target="_blank"><%= data.files[i]%></a></li>
-                            <% } %>
+                  <div class="card-body">
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <% for (var i = 0; i < data.flags.length; i++) {%>
+                            <li><%= data.flags[i]%></li>
+                        <% } %>
                         </ul>
-                        
-
-                    </div>
-                    <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>
-                    <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
                   </div>
                 </div>
               </div>
-              
+              </div>
+              <div class="row">
+              <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                  <div class="card-header py-3">
+                    <h4 class="my-0 fw-normal">Files</h4>
+                  </div>
+                  <div class="card-body">
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <% for (var i = 0; i < data.files.length; i++) {%>
+                            <li><a href="/download/<%= data.id%>/<%= data.files[i]%>" target="_blank"><%= data.files[i]%></a></li>
+                        <% } %>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+        
         </div>
+
      <% } %>
 
 
