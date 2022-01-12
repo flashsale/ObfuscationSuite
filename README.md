@@ -1,3 +1,16 @@
+**Features**
+*Version 1*
+1. ConfuserEx functionality: 100%
+2. Design: 100%
+3. File Upload / Download functionality: 100%
+4. Setup script: 25%
+
+
+*Version 2*
+1. DNSpy functionality: 0%
+
+---
+
 *Setup*
 1. Download the latest ConfuserEx CLI build, and keep the entire folder https://github.com/mkaring/ConfuserEx/releases
 2. Install NodeJS
