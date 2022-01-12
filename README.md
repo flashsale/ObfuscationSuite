@@ -4,7 +4,7 @@
 1. ConfuserEx functionality: 100%
 2. Design: 100%
 3. File Upload / Download functionality: 100%
-4. Setup script: 25%
+4. Setup script: 100% for now - may make more feature rich later
 
 
 *Version 2*
