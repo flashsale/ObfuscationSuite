@@ -4,8 +4,8 @@ const {fastify, fs, util, path, uuidv4, pump} = require('../imports.js')
 const serveFile = async (req, reply) => {
 
     const { id, file } = req.params
-    let fpath = "files/" + id + "/Confused/" + file
-    return reply.sendFile(fpath)
+    let fpath = "./files/" + id + "/Confused/" + file
+    return reply.sendFile(fpath, {root: "./"})
 }
 
 const outputPage = async (req, reply) => {
